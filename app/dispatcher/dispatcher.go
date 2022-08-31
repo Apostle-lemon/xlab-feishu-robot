@@ -1,52 +1,15 @@
-package robotServer
+package dispatcher
 
 import (
-	"crypto/sha256"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
-type FeishuEventRequest struct {
-	EventId   string
-	EventType string
-	Token     string
-	Event     map[string]any
-}
-
-func readFromDict(data map[string]any) FeishuEventRequest {
-	eventType := ""
-	token := ""
-	eventId := ""
-	event, _ := data["event"].(map[string]any)
-
-	if _, exist := data["schema"]; exist {
-		// v2
-		header, _ := data["header"].(map[string]any)
-		eventType, _ = header["event_type"].(string)
-		token, _ = header["token"].(string)
-		eventId, _ = header["event_id"].(string)
-	} else {
-		// v1
-		eventType, _ = event["type"].(string)
-		token, _ = event["token"].(string)
-		eventId, _ = event["uuid"].(string)
-	}
-
-	return FeishuEventRequest{
-		EventId:   eventId,
-		EventType: eventType,
-		Token:     token,
-		Event:     event,
-	}
-}
-
-func feishuEventHandler(c *gin.Context) {
+func Dispatcher(c *gin.Context) {
 	// Handler for Feishu Event Http Callback
 
 	// [steps]
@@ -110,31 +73,11 @@ func validateRequest(c *gin.Context, token string) bool {
 	return signature == calculateSignature(timestamp, nonce, viper.GetString("ENCRYPT_KEY"), string(body))
 }
 
-func calculateSignature(timestamp, nonce, encryptKey, bodystring string) string {
-	// copied from: https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-security-verification
-
-	var b strings.Builder
-	b.WriteString(timestamp)
-	b.WriteString(nonce)
-	b.WriteString(encryptKey)
-	b.WriteString(bodystring) //bodystring指整个请求体，不要在反序列化后再计算
-	bs := []byte(b.String())
-	h := sha256.New()
-	h.Write(bs)
-	bs = h.Sum(nil)
-	sig := fmt.Sprintf("%x", bs)
-	return sig
-}
-
-var eventList = make(map[string]bool)
-
 func eventRepeatDetect(eventId string) bool {
-	// 该函数用于检测事件是否已经被处理过,请在任意事件处理函数内部使用该该函数来记录event_id以及判定
-
-	if _, repeated := eventList[eventId]; repeated {
+	if _, repeated := eventIdList[eventId]; repeated {
 		return true
 	} else {
-		eventList[eventId] = true
+		eventIdList[eventId] = true
 		return false
 	}
 }

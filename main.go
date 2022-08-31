@@ -1,10 +1,9 @@
 package main
 
 import (
-	robotConfig "xlab-feishu-robot/config"
-	// feishuApi "xlab-feishu-robot/feishu_api"
-	robotLog "xlab-feishu-robot/log"
-	robotServer "xlab-feishu-robot/robot_server"
+	"xlab-feishu-robot/app"
+	"xlab-feishu-robot/config"
+	"xlab-feishu-robot/plugins"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
@@ -12,15 +11,15 @@ import (
 )
 
 func main() {
-	robotLog.Setup()
+	config.ReadConfig()
+	config.SetupLogrus()
+
 	logrus.Info("Robot starts up")
 
-	robotConfig.Init()
+	r := gin.Default()
 
-	// feishuApi.Client.StartTokenTimer()
+	app.Init(r)
+	plugins.Init(r)
 
-	router := gin.Default()
-	robotServer.Register(router)
-
-	router.Run("127.0.0.1:" + viper.GetString("server.PORT"))
+	r.Run("127.0.0.1:" + viper.GetString("server.PORT"))
 }

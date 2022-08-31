@@ -1,4 +1,4 @@
-package exampleController
+package example
 
 import "github.com/gin-gonic/gin"
 

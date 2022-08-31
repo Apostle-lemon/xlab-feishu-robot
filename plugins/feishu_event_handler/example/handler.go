@@ -1,4 +1,4 @@
-package exampleHandler
+package example
 
 import "github.com/sirupsen/logrus"
 

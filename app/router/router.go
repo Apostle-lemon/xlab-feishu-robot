@@ -1,21 +1,18 @@
 package router
 
 import (
-	"xlab-feishu-robot/app/dispatcher"
+	"xlab-feishu-robot/app/controller"
+	"xlab-feishu-robot/pkg/dispatcher"
 
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterDispatcher(r *gin.Engine) {
+func Register(r *gin.Engine) {
+	// register your controllers here
+	// example
+	r.POST("/api/example", controller.Example)
+
+	// DO NOT CHANGE LINES BELOW
+	// register dispatcher
 	r.POST("/feishu_events", dispatcher.Dispatcher)
 }
-
-func RegisterPOST(r *gin.Engine, relativePath string, handlers ...gin.HandlerFunc) {
-	r.POST(relativePath, handlers...)
-}
-
-func RegisterGET(r *gin.Engine, relativePath string, handlers ...gin.HandlerFunc) {
-	r.GET(relativePath, handlers...)
-}
-
-// add PATCH, DELETE etc. if needed

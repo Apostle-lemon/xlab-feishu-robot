@@ -1,4 +1,4 @@
-package example
+package controller
 
 import (
 	"net/http"
@@ -7,9 +7,9 @@ import (
 )
 
 // @Summary example custom controller
-// @Tags custom_robots
+// @Tags custom_controller
 // @Success 200 {string} OK
 // @Router /api/example [post]
-func Controller(c *gin.Context) {
+func Example(c *gin.Context) {
 	c.String(http.StatusOK, "OK")
 }

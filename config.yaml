@@ -1,12 +1,19 @@
 feishu:
   # 该区域请于飞书开放平台查询本机器人信息,详见
   # https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/coding
-  appId: ******
-  appSecret: ******
-  verificationToken: ******
-  encryptKey: ******
+  appId: abc******
+  appSecret: abc******
+  verificationToken: abc******
+  encryptKey: abc******
   larkHost: "https://open.feishu.cn"
 
 server:
   # 端口，请根据实际情况为准
   port: 3000
+
+  # add your custom fields here
+  exampleField1: ExampleString
+
+# add your custom fields here
+exampleField2:
+  exampleField3: 100

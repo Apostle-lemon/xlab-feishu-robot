@@ -19,7 +19,7 @@ const docTemplate = `{
         "/api/example": {
             "post": {
                 "tags": [
-                    "custom_robots"
+                    "custom_controller"
                 ],
                 "summary": "example custom controller",
                 "responses": {

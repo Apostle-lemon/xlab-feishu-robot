@@ -1,13 +1,9 @@
 package config
 
+import "github.com/YasyaKarasu/feishuapi"
+
 type Config struct {
-	Feishu struct {
-		AppId             string
-		AppSecret         string
-		VerificationToken string
-		EncryptKey        string
-		LarkHost          string
-	}
+	Feishu feishuapi.Config
 	Server struct {
 		Port int
 	}

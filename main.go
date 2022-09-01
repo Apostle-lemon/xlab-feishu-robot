@@ -7,6 +7,7 @@ import (
 	"xlab-feishu-robot/docs"
 	"xlab-feishu-robot/plugins"
 
+	"github.com/YasyaKarasu/feishuapi"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	swaggerfiles "github.com/swaggo/files"
@@ -15,17 +16,26 @@ import (
 
 func main() {
 	config.ReadConfig()
+
+	// log
 	config.SetupLogrus()
-
-	docs.SwaggerInfo.BasePath = "/"
-
 	logrus.Info("Robot starts up")
 
+	// feishu api client
+	var cli feishuapi.AppClient
+	config.SetupFeishuApiClient(&cli)
+
+	cli.StartTokenTimer()
+
+	// robot server
 	r := gin.Default()
 
 	app.Init(r)
 	plugins.Init(r)
 
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	r.Run(":" + fmt.Sprint(config.C.Server.Port))
+
+	// api docs by swagger
+	docs.SwaggerInfo.BasePath = "/"
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 }

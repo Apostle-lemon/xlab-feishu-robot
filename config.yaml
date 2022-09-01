@@ -1,12 +1,12 @@
 feishu:
   # 该区域请于飞书开放平台查询本机器人信息,详见
   # https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/coding
-  appId: cli_a3848cf069b9900e
-  appSecret: ygBBDJB2NqGFPVG5Vi9nlhlgggekhqNf
-  verificationToken: ''
-  encryptKey: ''
+  appId: ******
+  appSecret: ******
+  verificationToken: ******
+  encryptKey: ******
   larkHost: "https://open.feishu.cn"
 
 server:
   # 端口，请根据实际情况为准
-  PORT: 3000
+  port: 3000

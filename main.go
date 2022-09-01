@@ -1,18 +1,23 @@
 package main
 
 import (
+	"fmt"
 	"xlab-feishu-robot/app"
 	"xlab-feishu-robot/config"
+	"xlab-feishu-robot/docs"
 	"xlab-feishu-robot/plugins"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func main() {
 	config.ReadConfig()
 	config.SetupLogrus()
+
+	docs.SwaggerInfo.BasePath = "/"
 
 	logrus.Info("Robot starts up")
 
@@ -21,5 +26,6 @@ func main() {
 	app.Init(r)
 	plugins.Init(r)
 
-	r.Run("127.0.0.1:" + viper.GetString("server.PORT"))
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	r.Run(":" + fmt.Sprint(config.C.Server.Port))
 }

@@ -9,5 +9,5 @@ func Init() {
 	// register your handlers here
 
 	// example
-	dispatcher.RegisterListener(example.Handler, "example")
+	dispatcher.RegisterListener(example.Handler, "im.message.receive_v1")
 }

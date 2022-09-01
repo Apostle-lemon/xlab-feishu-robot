@@ -1,0 +1,26 @@
+info:
+  contact: {}
+paths:
+  /api/example:
+    post:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: example custom controller
+      tags:
+      - custom_robots
+  /feishu_events:
+    post:
+      consumes:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: feishu event dispatcher
+      tags:
+      - feishu_event
+swagger: "2.0"

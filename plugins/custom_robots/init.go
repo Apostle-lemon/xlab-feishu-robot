@@ -9,7 +9,8 @@ import (
 
 func Init(r *gin.Engine) {
 	// register your plugin's router here
+	// use these functions: router.RegisterPOST(...) router.RegisterGET(...)
 
 	// example
-	router.RegisterPlugin(r, "/api/example", example.Controller)
+	router.RegisterPOST(r, "/api/example", example.Controller)
 }

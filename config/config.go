@@ -5,6 +5,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+var C Config
+
 func ReadConfig() {
 	viper.SetConfigName("config") // set the config file name. Viper will automatically detect the file extension name
 	viper.AddConfigPath("./")     // search the config file under the current directory
@@ -13,26 +15,9 @@ func ReadConfig() {
 		logrus.Panic(err)
 	}
 
+	if err := viper.Unmarshal(&C); err != nil {
+		logrus.Error("Failed to unmarshal config")
+	}
+
 	logrus.Info("Configuration file loaded")
-
-	var confItems = map[string][]string{
-		"feishu": {"APP_ID", "APP_SECRET", "VERIFICATION_TOKEN", "ENCRYPT_KEY", "LARK_HOST"},
-		"server": {"PORT"},
-	}
-
-	for k, v := range confItems {
-		checkConfIsSet(k, v)
-	}
-
-	logrus.Info("All required values in configuration file are set")
-}
-
-func checkConfIsSet(name string, keys []string) {
-	for i := range keys {
-		wholeKey := name + "." + keys[i]
-		if !viper.IsSet(wholeKey) {
-			logrus.WithField(wholeKey, nil).
-				Fatal("The following item of your configuration file hasn't been set properly: ")
-		}
-	}
 }

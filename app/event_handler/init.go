@@ -1,9 +1,13 @@
 package eventHandler
 
-import "xlab-feishu-robot/pkg/dispatcher"
+import (
+	"xlab-feishu-robot/pkg/dispatcher"
+	"xlab-feishu-robot/app/event_handler/receiveMessage"
+)
+
 
 func Init() {
 	// register your handlers here
 	// example
-	dispatcher.RegisterListener(example, "im.message.receive_v1")
+	dispatcher.RegisterListener(receiveMessage.Receive, "im.message.receive_v1")
 }

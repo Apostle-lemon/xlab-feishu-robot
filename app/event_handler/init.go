@@ -2,7 +2,7 @@ package eventHandler
 
 import (
 	"xlab-feishu-robot/pkg/dispatcher"
-	"xlab-feishu-robot/app/event_handler/receiveMessage"
+	"xlab-feishu-robot/app/event_handler/receive_message"
 )
 
 

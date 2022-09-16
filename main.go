@@ -5,8 +5,7 @@ import (
 	"xlab-feishu-robot/app"
 	"xlab-feishu-robot/config"
 	"xlab-feishu-robot/docs"
-
-	"github.com/YasyaKarasu/feishuapi"
+	"xlab-feishu-robot/pkg/global"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	swaggerfiles "github.com/swaggo/files"
@@ -21,9 +20,8 @@ func main() {
 	logrus.Info("Robot starts up")
 
 	// feishu api client
-	var cli feishuapi.AppClient
-	config.SetupFeishuApiClient(&cli)
-	cli.StartTokenTimer()
+	config.SetupFeishuApiClient(&global.Cli)
+	global.Cli.StartTokenTimer()
 
 	// robot server
 	r := gin.Default()

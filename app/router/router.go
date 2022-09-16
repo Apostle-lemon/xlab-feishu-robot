@@ -14,5 +14,5 @@ func Register(r *gin.Engine) {
 
 	// DO NOT CHANGE LINES BELOW
 	// register dispatcher
-	r.POST("/feishu_events", dispatcher.Dispatcher)
+	r.POST("/feiShu/Event", dispatcher.Dispatcher)
 }

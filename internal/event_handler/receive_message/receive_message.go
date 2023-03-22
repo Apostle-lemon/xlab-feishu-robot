@@ -27,7 +27,7 @@ type MessageEvent struct {
 		Chat_type    string `json:"chat_type"`
 		Message_type string `json:"message_type"`
 		Content      string `json:"content"`
-		Metions      struct {
+		Mentions     []struct {
 			Key string `json:"key"`
 			Id  struct {
 				Union_id string `json:"union_id"`
@@ -36,7 +36,7 @@ type MessageEvent struct {
 			} `json:"id"`
 			Name       string `json:"name"`
 			Tenant_key string `json:"tenant_key"`
-		} `json:"metions"`
+		} `json:"mentions"`
 	} `json:"message"`
 }
 

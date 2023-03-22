@@ -32,3 +32,5 @@ go.work
 
 /log/
 /.vscode/
+.idea
+lemonconfig*

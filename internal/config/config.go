@@ -25,7 +25,7 @@ var C Config
 
 func ReadConfig() {
 	viper.SetConfigName("config")
-	viper.AddConfigPath("./")
+	viper.AddConfigPath("./config/")
 
 	if err := viper.ReadInConfig(); err != nil {
 		logrus.Panic(err)

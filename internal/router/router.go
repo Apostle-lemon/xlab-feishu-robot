@@ -1,8 +1,8 @@
 package router
 
 import (
-	"xlab-feishu-robot/app/controller"
-	"xlab-feishu-robot/pkg/dispatcher"
+	"xlab-feishu-robot/internal/controller"
+	"xlab-feishu-robot/internal/dispatcher"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,4 +1,4 @@
-package global
+package pkg
 
 import (
 	"github.com/YasyaKarasu/feishuapi"

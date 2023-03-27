@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
-	"xlab-feishu-robot/app"
-	"xlab-feishu-robot/config"
 	"xlab-feishu-robot/docs"
-	"xlab-feishu-robot/pkg/global"
+	config "xlab-feishu-robot/internal/config"
+	"xlab-feishu-robot/internal/log"
+
+	"xlab-feishu-robot/internal/pkg"
+
+	"xlab-feishu-robot/internal"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
@@ -13,20 +16,24 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
+func Init() {
+
+}
+
 func main() {
 	config.ReadConfig()
 
 	// log
-	config.SetupLogrus()
+	log.SetupLogrus()
 	logrus.Info("Robot starts up")
 
 	// feishu api client
-	config.SetupFeishuApiClient(&global.Cli)
-	global.Cli.StartTokenTimer()
+	config.SetupFeishuApiClient(&pkg.Cli)
+	pkg.Cli.StartTokenTimer()
 
 	// robot server
 	r := gin.Default()
-	app.Init(r)
+	internal.Init(r)
 
 	// api docs by swagger
 	docs.SwaggerInfo.BasePath = "/"

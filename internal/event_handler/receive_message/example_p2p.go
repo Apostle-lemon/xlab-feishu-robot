@@ -1,7 +1,8 @@
 package receiveMessage
 
 import (
-	"xlab-feishu-robot/pkg/global"
+	"xlab-feishu-robot/internal/pkg"
+
 	_ "github.com/sirupsen/logrus"
 )
 
@@ -10,5 +11,5 @@ func init(){
 }
 
 func p2pHelpMenu(messageevent *MessageEvent){
-	global.Cli.Send("open_id",messageevent.Sender.Sender_id.Open_id,"text","this is a P2P test string")
+	pkg.Cli.MessageSend("open_id",messageevent.Sender.Sender_id.Open_id,"text","this is a P2P test string")
 }

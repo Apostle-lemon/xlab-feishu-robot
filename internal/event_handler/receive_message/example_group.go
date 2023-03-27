@@ -1,7 +1,8 @@
 package receiveMessage
 
 import (
-	"xlab-feishu-robot/pkg/global"
+	"xlab-feishu-robot/internal/pkg"
+
 	_ "github.com/sirupsen/logrus"
 )
 
@@ -10,5 +11,5 @@ func init(){
 }
 
 func groupHelpMenu(messageevent *MessageEvent){
-	global.Cli.Send("chat_id",messageevent.Message.Chat_id,"text","this is a group test string")
+	pkg.Cli.MessageSend("chat_id",messageevent.Message.Chat_id,"text","this is a group test string")
 }

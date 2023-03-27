@@ -1,8 +1,8 @@
-package app
+package internal
 
 import (
-	eventHandler "xlab-feishu-robot/app/event_handler"
-	"xlab-feishu-robot/app/router"
+	eventHandler "xlab-feishu-robot/internal/event_handler"
+	"xlab-feishu-robot/internal/router"
 
 	"github.com/gin-gonic/gin"
 )

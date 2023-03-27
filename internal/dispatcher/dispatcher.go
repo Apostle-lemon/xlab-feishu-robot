@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
-	"xlab-feishu-robot/config"
+	"xlab-feishu-robot/internal/config"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
@@ -61,17 +61,17 @@ func Dispatcher(c *gin.Context) {
 	}
 
 	if eventRepeatDetect(req.EventId) {
-		logrus.Warning("Repeated event: ", req)
+		logrus.Info("Repeated event: ", req)
 		c.String(http.StatusBadRequest, "事件重复")
 		return
 	}
 
 	if handler, exists := eventMap[req.EventType]; exists {
-		handler(req.Event)
+		go handler(req.Event)
 		c.String(http.StatusOK, "OK")
 		return
 	} else {
-		logrus.Error("Failed to find event handler: ", req)
+		logrus.Warn("Failed to find event handler: ", req)
 		c.String(http.StatusBadRequest, "无对应处理函数")
 		return
 	}

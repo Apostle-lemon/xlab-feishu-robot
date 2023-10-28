@@ -40,10 +40,10 @@ func ReadConfig() {
 	logrus.Info("Configuration file loaded")
 }
 
-func SetupFeishuApiClient(cli *lark.Client) {
+func SetupFeishuApiClient() {
+	// WithEnableTokenCache(true): 自动获取、缓存tenant_access_token
+	pkg.Cli = lark.NewClient(C.Feishu.AppId, C.Feishu.AppSecret, lark.WithEnableTokenCache(true))
 	// Ref:
 	// - tenant_access_token: https://open.feishu.cn/document/server-docs/api-call-guide/calling-process/get-access-token
 	// - API Client: https://github.com/larksuite/oapi-sdk-go/blob/v3_main/README.md#%E9%85%8D%E7%BD%AEapi-client
-	// WithEnableTokenCache(true): 自动获取、缓存tenant_access_token
-	pkg.Cli = lark.NewClient(C.Feishu.AppId, C.Feishu.AppSecret, lark.WithEnableTokenCache(true))
 }

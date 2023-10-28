@@ -1,13 +1,9 @@
 package receiveMessage
 
 import (
-	_ "github.com/sirupsen/logrus"
+	larkim "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
-func init() {
-	p2pMessageRegister(p2pHelpMenu, "help")
-}
-
-func p2pHelpMenu(messageevent *MessageEvent) {
-	SendMessage(UserOpenId, messageevent.Sender.Sender_id.Open_id, Text, "this is a p2p test string")
+func p2pHelpMenu(event *larkim.P2MessageReceiveV1) {
+	SendMessage(UserOpenId, *event.Event.Sender.SenderId.OpenId, Text, "this is a p2p test string")
 }

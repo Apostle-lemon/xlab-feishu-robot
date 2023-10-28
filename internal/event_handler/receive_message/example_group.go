@@ -1,13 +1,9 @@
 package receiveMessage
 
 import (
-	_ "github.com/sirupsen/logrus"
+	larkim "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 )
 
-func init() {
-	groupMessageRegister(groupHelpMenu, "help")
-}
-
-func groupHelpMenu(messageevent *MessageEvent) {
-	SendMessage(GroupChatId, messageevent.Message.Chat_id, Text, "this is a group test string")
+func groupHelpMenu(event *larkim.P2MessageReceiveV1) {
+	SendMessage(GroupChatId, *event.Event.Message.ChatId, Text, "this is a group test string")
 }

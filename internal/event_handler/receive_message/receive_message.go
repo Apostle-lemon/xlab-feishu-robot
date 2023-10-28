@@ -1,60 +1,24 @@
 package receiveMessage
 
 import (
-	"encoding/json"
+	"context"
+	larkim "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
 	"github.com/sirupsen/logrus"
 )
 
-type messageHandler func(*MessageEvent)
-
-// for more detailed information, see https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive
-type MessageEvent struct {
-	Sender struct {
-		Sender_id struct {
-			Union_id string `json:"union_id"`
-			Open_id  string `json:"open_id"`
-			User_id  string `json:"user_id"`
-		} `json:"sender_id"`
-		Sender_type string `json:"sender_type"`
-		Tenant_key  string `json:"tenant_key"`
-	} `json:"sender"`
-	Message struct {
-		Message_id   string `json:"message_id"`
-		Root_id      string `json:"root_id"`
-		Parent_id    string `json:"parent_id"`
-		Create_time  string `json:"create_time"`
-		Chat_id      string `json:"chat_id"`
-		Chat_type    string `json:"chat_type"`
-		Message_type string `json:"message_type"`
-		Content      string `json:"content"`
-		Mentions     []struct {
-			Key string `json:"key"`
-			Id  struct {
-				Union_id string `json:"union_id"`
-				Open_id  string `json:"open_id"`
-				User_id  string `json:"user_id"`
-			} `json:"id"`
-			Name       string `json:"name"`
-			Tenant_key string `json:"tenant_key"`
-		} `json:"mentions"`
-	} `json:"message"`
-}
-
-// dispatch message, according to Chat type
-func Receive(event map[string]any) {
-	messageevent := MessageEvent{}
-	map2struct(event, &messageevent)
-	switch messageevent.Message.Chat_type {
+// Receive dispatch message according to chat type
+func Receive(_ context.Context, event *larkim.P2MessageReceiveV1) error {
+	chatType := *event.Event.Message.ChatType
+	switch chatType {
 	case "p2p":
-		p2p(&messageevent)
+		p2p(event)
 	case "group":
-		group(&messageevent)
-	default:
-		logrus.WithFields(logrus.Fields{"chat type": messageevent.Message.Chat_type}).Warn("Receive message, but this chat type is not supported")
-	}
-}
+		group(event)
+	// add more chat type here if needed
 
-func map2struct(m map[string]interface{}, stru interface{}) {
-	bytes, _ := json.Marshal(m)
-	json.Unmarshal(bytes, stru)
+	default:
+		logrus.WithFields(logrus.Fields{"chat type": chatType}).Warn("Receive message, but this chat type is not supported")
+	}
+
+	return nil
 }

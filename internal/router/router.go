@@ -1,18 +1,20 @@
 package router
 
 import (
-	"xlab-feishu-robot/internal/controller"
-	"xlab-feishu-robot/internal/dispatcher"
-
 	"github.com/gin-gonic/gin"
+	sdkginext "github.com/larksuite/oapi-sdk-gin"
+	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
+	"xlab-feishu-robot/internal/config"
+	"xlab-feishu-robot/internal/controller"
+	"xlab-feishu-robot/internal/event_handler/receive_message"
 )
 
 func Register(r *gin.Engine) {
-	// register your controllers here
 	// example
 	r.POST("/api/example", controller.Example)
 
-	// DO NOT CHANGE LINES BELOW
 	// register dispatcher
-	r.POST("/lark/event", dispatcher.Dispatcher)
+	handler := dispatcher.NewEventDispatcher(config.C.Feishu.VerificationToken, config.C.Feishu.EncryptKey).
+		OnP2MessageReceiveV1(receiveMessage.Receive)
+	r.POST("/lark/event", sdkginext.NewEventHandlerFunc(handler))
 }

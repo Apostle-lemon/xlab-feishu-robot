@@ -28,8 +28,7 @@ func main() {
 	logrus.Info("Robot starts up")
 
 	// feishu api client
-	config.SetupFeishuApiClient(&pkg.Cli)
-	pkg.Cli.StartTokenTimer()
+	config.SetupFeishuApiClient(pkg.Cli)
 
 	// robot server
 	r := gin.Default()

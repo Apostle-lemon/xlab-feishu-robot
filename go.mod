@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/YasyaKarasu/feishuapi v1.2.9
 	github.com/gin-gonic/gin v1.9.0
+	github.com/larksuite/oapi-sdk-go/v3 v3.0.31
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/viper v1.15.0
 	github.com/swaggo/files v1.0.1

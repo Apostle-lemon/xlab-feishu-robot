@@ -6,8 +6,6 @@ import (
 	config "xlab-feishu-robot/internal/config"
 	"xlab-feishu-robot/internal/log"
 
-	"xlab-feishu-robot/internal/pkg"
-
 	"xlab-feishu-robot/internal"
 
 	"github.com/gin-gonic/gin"
@@ -24,7 +22,7 @@ func main() {
 	logrus.Info("Robot starts up")
 
 	// feishu api client
-	config.SetupFeishuApiClient(pkg.Cli)
+	config.SetupFeishuApiClient()
 
 	// robot server
 	r := gin.Default()

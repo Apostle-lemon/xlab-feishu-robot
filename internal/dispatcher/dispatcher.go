@@ -2,7 +2,7 @@ package dispatcher
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"xlab-feishu-robot/internal/config"
 
@@ -27,7 +27,7 @@ func Dispatcher(c *gin.Context) {
 	// see: https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM
 
 	// get raw body (bytes)
-	rawBody, _ := ioutil.ReadAll(c.Request.Body)
+	rawBody, _ := io.ReadAll(c.Request.Body)
 
 	// decrypt data if ENCRYPT is on
 	var requestStr string

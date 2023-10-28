@@ -16,5 +16,6 @@ func Register(r *gin.Engine) {
 	// register dispatcher
 	handler := dispatcher.NewEventDispatcher(config.C.Feishu.VerificationToken, config.C.Feishu.EncryptKey).
 		OnP2MessageReceiveV1(receiveMessage.Receive)
+	// DO NOT CHANGE THIS LINE
 	r.POST("/lark/event", sdkginext.NewEventHandlerFunc(handler))
 }

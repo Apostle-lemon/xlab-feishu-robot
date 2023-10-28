@@ -16,10 +16,6 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func Init() {
-
-}
-
 func main() {
 	config.ReadConfig()
 
@@ -38,5 +34,5 @@ func main() {
 	docs.SwaggerInfo.BasePath = "/"
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-	r.Run(":" + fmt.Sprint(config.C.Server.Port))
+	_ = r.Run(":" + fmt.Sprint(config.C.Server.Port))
 }

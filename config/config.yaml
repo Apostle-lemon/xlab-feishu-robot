@@ -1,10 +1,10 @@
-feishu:
+larkconfig:
   # 该区域请于飞书开放平台查询本机器人信息,详见
   # https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/coding
-  appId: abc******
-  appSecret: abc******
-  verificationToken: abc******
-  encryptKey: abc******
+  appId: cli_a5b63d7919fad00b
+  appSecret: VuYnPTPpNmlCYvSJv6MItdIxEv0WUBpu
+  verificationToken: lDQEBMlJTmItd2x0jMYBZdPuk8gutuhQ
+  encryptKey: 80QOLvzMI557MOSmxCkbUga17KSMFJqm
   larkHost: "https://open.feishu.cn"
 
 server:

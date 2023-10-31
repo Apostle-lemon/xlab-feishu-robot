@@ -14,7 +14,7 @@ func Register(r *gin.Engine) {
 	r.POST("/api/example", controller.Example)
 
 	// register dispatcher
-	handler := dispatcher.NewEventDispatcher(config.C.Feishu.VerificationToken, config.C.Feishu.EncryptKey).
+	handler := dispatcher.NewEventDispatcher(config.C.LarkConfig.VerificationToken, config.C.LarkConfig.EncryptKey).
 		OnP2MessageReceiveV1(receiveMessage.Receive)
 	// DO NOT CHANGE THIS LINE
 	r.POST("/lark/event", sdkginext.NewEventHandlerFunc(handler))
